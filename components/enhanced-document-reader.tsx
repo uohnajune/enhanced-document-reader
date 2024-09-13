@@ -33,10 +33,10 @@ const TextToSpeech = ({ text }: { text: string }) => {
 
   return (
     <div className="flex space-x-2">
-      <Button onClick={isPlaying ? handlePause : handlePlay} aria-label={isPlaying ? "Pause" : "Play"}>
+      <Button onClick={isPlaying ? handlePause : handlePlay} variant="outline" size="icon" aria-label={isPlaying ? "Pause" : "Play"}>
         {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
       </Button>
-      <Button onClick={handleStop} aria-label="Stop">
+      <Button onClick={handleStop} variant="outline" size="icon" aria-label="Stop">
         <Square className="h-4 w-4" />
       </Button>
     </div>
@@ -50,7 +50,7 @@ const DocumentViewer = ({ content }: { content: string }) => (
     </CardHeader>
     <CardContent>
       <ScrollArea className="h-[300px]">
-        <p>{content}</p>
+        <p className="text-sm">{content}</p>
       </ScrollArea>
     </CardContent>
   </Card>
@@ -153,58 +153,60 @@ export default function EnhancedDocumentReader() {
   }
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Enhanced Document Reader and Analyzer</h1>
-      <div className="space-y-4">
+    <div className="container mx-auto p-4 space-y-6">
+      <h1 className="text-3xl font-bold text-center mb-6">Enhanced Document Reader and Analyzer</h1>
+      <Card>
+        <CardHeader>
+          <CardTitle>Upload Document</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Input type="file" onChange={handleFileUpload} accept=".pdf,.doc,.docx,.txt" />
+        </CardContent>
+      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-6">
+          <DocumentViewer content={document} />
+          <Card>
+            <CardHeader>
+              <CardTitle>Text-to-Speech</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <TextToSpeech text={document} />
+            </CardContent>
+          </Card>
+        </div>
+        <div className="space-y-6">
+          <SummaryGenerator onGenerate={handleGenerateSummary} />
+          <QuestionAsker onAsk={handleAskQuestion} />
+          <NoteTaker notes={notes} onNotesChange={setNotes} />
+        </div>
+      </div>
+      {summary && (
         <Card>
           <CardHeader>
-            <CardTitle>Upload Document</CardTitle>
+            <CardTitle>Generated Summary</CardTitle>
           </CardHeader>
           <CardContent>
-            <Input type="file" onChange={handleFileUpload} accept=".pdf,.doc,.docx,.txt" />
+            <p>{summary}</p>
+            <div className="mt-4">
+              <TextToSpeech text={summary} />
+            </div>
           </CardContent>
         </Card>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-4">
-            <DocumentViewer content={document} />
-            <Card>
-              <CardHeader>
-                <CardTitle>Text-to-Speech</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TextToSpeech text={document} />
-              </CardContent>
-            </Card>
-          </div>
-          <div className="space-y-4">
-            <SummaryGenerator onGenerate={handleGenerateSummary} />
-            <QuestionAsker onAsk={handleAskQuestion} />
-            <NoteTaker notes={notes} onNotesChange={setNotes} />
-          </div>
-        </div>
-        {summary && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Generated Summary</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>{summary}</p>
-              <TextToSpeech text={summary} />
-            </CardContent>
-          </Card>
-        )}
-        {answer && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Answer</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>{answer}</p>
+      )}
+      {answer && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Answer</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>{answer}</p>
+            <div className="mt-4">
               <TextToSpeech text={answer} />
-            </CardContent>
-          </Card>
-        )}
-      </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded">Loading...</div>
