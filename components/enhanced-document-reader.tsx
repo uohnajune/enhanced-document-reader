@@ -115,7 +115,7 @@ const NoteTaker = ({ notes, onNotesChange }: { notes: string, onNotesChange: (no
   </Card>
 )
 
-export default function EnhancedDocumentReader() {
+const EnhancedDocumentReader = () => {
   const [document, setDocument] = useState("This is a sample document content. In a real application, this would be the uploaded document's text.")
   const [summary, setSummary] = useState("")
   const [answer, setAnswer] = useState("")
@@ -215,3 +215,5 @@ export default function EnhancedDocumentReader() {
     </div>
   )
 }
+
+export default EnhancedDocumentReader
