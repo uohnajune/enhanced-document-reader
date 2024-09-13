@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -113,7 +115,7 @@ const NoteTaker = ({ notes, onNotesChange }: { notes: string, onNotesChange: (no
   </Card>
 )
 
-export default function Component() {
+export default function EnhancedDocumentReader() {
   const [document, setDocument] = useState("This is a sample document content. In a real application, this would be the uploaded document's text.")
   const [summary, setSummary] = useState("")
   const [answer, setAnswer] = useState("")
@@ -151,7 +153,7 @@ export default function Component() {
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-4">
+    <div className="space-y-4">
       <h1 className="text-2xl font-bold">Enhanced Document Reader and Analyzer</h1>
       <div className="space-y-4">
         <Card>
