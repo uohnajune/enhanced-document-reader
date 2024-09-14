@@ -1,13 +1,6 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Play, Pause, Square } from 'lucide-react'
 
 const TextToSpeech = ({ text }: { text: string }) => {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -33,86 +26,68 @@ const TextToSpeech = ({ text }: { text: string }) => {
 
   return (
     <div className="flex space-x-2">
-      <Button onClick={isPlaying ? handlePause : handlePlay} variant="outline" size="icon" aria-label={isPlaying ? "Pause" : "Play"}>
-        {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-      </Button>
-      <Button onClick={handleStop} variant="outline" size="icon" aria-label="Stop">
-        <Square className="h-4 w-4" />
-      </Button>
+      <button onClick={isPlaying ? handlePause : handlePlay} className="px-4 py-2 bg-blue-500 text-white rounded">
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
+      <button onClick={handleStop} className="px-4 py-2 bg-red-500 text-white rounded">
+        Stop
+      </button>
     </div>
   )
 }
 
 const DocumentViewer = ({ content }: { content: string }) => (
-  <Card className="h-[400px]">
-    <CardHeader>
-      <CardTitle>Document Viewer</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <ScrollArea className="h-[300px]">
-        <p className="text-sm">{content}</p>
-      </ScrollArea>
-    </CardContent>
-  </Card>
+  <div className="border p-4 h-[400px] overflow-auto">
+    <h2 className="text-xl font-bold mb-2">Document Viewer</h2>
+    <p className="text-sm">{content}</p>
+  </div>
 )
 
 const SummaryGenerator = ({ onGenerate }: { onGenerate: (level: string) => void }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Summary Generator</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <Select onValueChange={onGenerate}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select summary level" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="basic">Basic/Beginner</SelectItem>
-          <SelectItem value="intermediate">Intermediate</SelectItem>
-          <SelectItem value="moderate">Moderate Experience</SelectItem>
-          <SelectItem value="expert">Expert</SelectItem>
-        </SelectContent>
-      </Select>
-    </CardContent>
-  </Card>
+  <div className="border p-4">
+    <h2 className="text-xl font-bold mb-2">Summary Generator</h2>
+    <select onChange={(e) => onGenerate(e.target.value)} className="w-full p-2 border rounded">
+      <option value="">Select summary level</option>
+      <option value="basic">Basic/Beginner</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="moderate">Moderate Experience</option>
+      <option value="expert">Expert</option>
+    </select>
+  </div>
 )
 
 const QuestionAsker = ({ onAsk }: { onAsk: (question: string) => void }) => {
   const [question, setQuestion] = useState("")
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Ask a Question</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex space-x-2">
-          <Input
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Type your question here"
-          />
-          <Button onClick={() => onAsk(question)}>Ask</Button>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="border p-4">
+      <h2 className="text-xl font-bold mb-2">Ask a Question</h2>
+      <div className="flex space-x-2">
+        <input
+          type="text"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Type your question here"
+          className="flex-1 p-2 border rounded"
+        />
+        <button onClick={() => onAsk(question)} className="px-4 py-2 bg-green-500 text-white rounded">
+          Ask
+        </button>
+      </div>
+    </div>
   )
 }
 
 const NoteTaker = ({ notes, onNotesChange }: { notes: string, onNotesChange: (notes: string) => void }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Notes</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <Textarea
-        value={notes}
-        onChange={(e) => onNotesChange(e.target.value)}
-        placeholder="Take your notes here"
-        className="h-[200px]"
-      />
-    </CardContent>
-  </Card>
+  <div className="border p-4">
+    <h2 className="text-xl font-bold mb-2">Notes</h2>
+    <textarea
+      value={notes}
+      onChange={(e) => onNotesChange(e.target.value)}
+      placeholder="Take your notes here"
+      className="w-full h-[200px] p-2 border rounded"
+    />
+  </div>
 )
 
 const EnhancedDocumentReader = () => {
@@ -155,25 +130,17 @@ const EnhancedDocumentReader = () => {
   return (
     <div className="container mx-auto p-4 space-y-6">
       <h1 className="text-3xl font-bold text-center mb-6">Enhanced Document Reader and Analyzer</h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>Upload Document</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Input type="file" onChange={handleFileUpload} accept=".pdf,.doc,.docx,.txt" />
-        </CardContent>
-      </Card>
+      <div className="border p-4">
+        <h2 className="text-xl font-bold mb-2">Upload Document</h2>
+        <input type="file" onChange={handleFileUpload} accept=".pdf,.doc,.docx,.txt" className="w-full" />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-6">
           <DocumentViewer content={document} />
-          <Card>
-            <CardHeader>
-              <CardTitle>Text-to-Speech</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <TextToSpeech text={document} />
-            </CardContent>
-          </Card>
+          <div className="border p-4">
+            <h2 className="text-xl font-bold mb-2">Text-to-Speech</h2>
+            <TextToSpeech text={document} />
+          </div>
         </div>
         <div className="space-y-6">
           <SummaryGenerator onGenerate={handleGenerateSummary} />
@@ -182,30 +149,22 @@ const EnhancedDocumentReader = () => {
         </div>
       </div>
       {summary && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Generated Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{summary}</p>
-            <div className="mt-4">
-              <TextToSpeech text={summary} />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="border p-4">
+          <h2 className="text-xl font-bold mb-2">Generated Summary</h2>
+          <p>{summary}</p>
+          <div className="mt-4">
+            <TextToSpeech text={summary} />
+          </div>
+        </div>
       )}
       {answer && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Answer</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{answer}</p>
-            <div className="mt-4">
-              <TextToSpeech text={answer} />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="border p-4">
+          <h2 className="text-xl font-bold mb-2">Answer</h2>
+          <p>{answer}</p>
+          <div className="mt-4">
+            <TextToSpeech text={answer} />
+          </div>
+        </div>
       )}
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

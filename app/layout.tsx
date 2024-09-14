@@ -1,9 +1,4 @@
-import React from 'react'
-
-export const metadata = {
-  title: 'Enhanced Document Reader',
-  description: 'A powerful document reader and analyzer',
-}
+import './globals.css'
 
 export default function RootLayout({
   children,
