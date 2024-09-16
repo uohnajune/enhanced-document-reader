@@ -9,26 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@radix-ui/react-scroll-area": "^1.1.0",
-    "@radix-ui/react-select": "^2.1.1",
-    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-scroll-area": "latest",
+    "@radix-ui/react-select": "latest",
+    "@radix-ui/react-slot": "latest",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.284.0",
-    "next": "13.5.4",
-    "react": "^18",
-    "react-dom": "^18",
-    "tailwind-merge": "^1.14.0"
+    "clsx": "latest",
+    "core-js": "^3.38.1",
+    "eslist": "^1.0.0-beta.1",
+    "formidable": "^3.5.1",
+    "lucide-react": "^0.441.0",
+    "next": "^14.0.0",
+    "openai": "^4.61.0",
+    "pdf-parse": "^1.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "13.5.4",
-    "postcss": "^8.4.45",
-    "tailwindcss": "^3.4.11",
-    "typescript": "^5"
+    "@types/formidable": "^3.4.5",
+    "@types/node": "latest",
+    "@types/pdf-parse": "^1.1.4",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "latest",
+    "postcss": "^8.4.31",
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }
